@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Project : Notes | Edit Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .noneClass {
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body class="">
+  <div class="w-full min-h-screen p-10 text-white bg-zinc-950">
+
+    <div class="flex flex-col items-center justify-center w-full max-w-screen-xl gap-5 p-10 mx-auto bg-gray-900 border rounded-lg border-white/40">
+      <a href="/" class="px-5 py-2 font-semibold text-black border rounded-md bg-white/50 border-black/20">Go to Home</a>
+
+      <form action="/edit" class="flex flex-col gap-5" method="post">
+        <input placeholder="Previous Name" value="<%= file %>" name="previous" id="" type="text" class="px-5 py-3 text-white truncate bg-gray-900 border cursor-not-allowed noneClass rounded-xl border-white/40 focus:outline-none">
+        <input placeholder="Provide A name without [.txt] extension" name="new" id="" type="text" class="px-5 py-3 text-white bg-gray-900 border min-w-96 rounded-xl border-white/40 focus:outline-none">
+        <input type="submit" value="Save Changes" class="px-5 py-2 mx-auto font-bold text-black bg-yellow-500 border rounded-xl border-white/40 focus:outline-none">
+      </form>
+
+    </div>
+  </div>
+</body>
+
+</html>

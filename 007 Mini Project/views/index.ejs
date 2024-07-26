@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Project : Notes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="">
+  <div class="w-full min-h-screen text-white bg-zinc-950">
+    <h1 class="py-10 text-4xl text-center">Create Notes</h1>
+
+
+    <div class="p-10 mx-auto form max-w-screen-2xl">
+      <form action="/create" class="flex flex-col gap-5" method="post">
+        <input placeholder="Title Goes Here ..." name="title" id="" type="text" class="px-5 py-3 text-white bg-gray-900 border rounded-xl border-white/40 focus:outline-none">
+        <textarea name="details" id="" placeholder="Notes goes here ..." rows="5" class="px-5 py-3 text-white bg-gray-900 border resize-none rounded-xl border-white/40 focus:outline-none"></textarea>
+        <input type="submit" value="Create Task" class="px-5 py-3 mx-auto text-white bg-gray-900 border rounded-xl border-white/40 focus:outline-none">
+      </form>
+    </div>
+
+    <hr class="py-6 mx-auto max-w-screen-2xl">
+
+    <div class="flex flex-wrap justify-center gap-5 p-10 mx-auto tasks max-w-screen-2xl">
+
+      <% if(files.length > 0){   %>
+      <% files.forEach(function(file){%>
+      <div class="flex flex-col gap-3 px-5 py-4 border rounded-md w-72 task border-white/30 bg-slate-900">
+        <h1 class="text-2xl tracking-tighter truncate sm:text-3xl">
+          <%= file %>
+        </h1>
+        <div class="flex items-center justify-between w-full">
+          <a href="/file/<%= file %>" class="text-blue-500">Read More...</a>
+          <a href="/edit/<%= file %>" class="underline text-zinc-600">Edit File Name</a>
+        </div>
+      </div>
+
+      <% }) %>
+      <% } else { %>
+      <h3 class="text-3xl font-bold capitalize text-zinc-400">No Tasks Yet</h3>
+
+      <% } %>
+
+
+
+    </div>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "3-advance-module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "chacha": "echo \"\u001b [36mRunning Tests.... \u001b[39m\" && node index.js ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "accessibility": "^3.0.9",
+    "chalk": "^5.3.0",
+    "one-liner-joke": "^1.2.2"
+  }
+}
