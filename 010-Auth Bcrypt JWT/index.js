@@ -13,6 +13,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
+// Cokies Start
 app.get("/", (req, res) => {
   // creating Cookie
   res.cookie("name", "ishak shekh");
@@ -25,7 +26,9 @@ app.get("/read", (req, res) => {
   console.log(req.cookies);
   res.send("Read Page");
 });
+// Cookies End
 
+// Bcrypt Start
 app.get("/pass", (req, res) => {
   // Encryption of Password
   bcrypt.genSalt(10, (err, salt) => {
@@ -42,7 +45,9 @@ app.get("/comp", (req, res) => {
     res.send(result);
   });
 });
+// Bcrypt End
 
+// Json Web Token (JWT)  Start
 app.get("/jwt", (req, res) => {
   let token = jwt.sign(
     { email: "ishak@gmail.com" }, //data to send
@@ -56,6 +61,7 @@ app.get("/jwt-read", (req, res) => {
   console.log(req.cookies.token);
   jwt.verify(req.cookies.token, "secret", (err, data) => res.send(data));
 });
+// JWT End
 
 app.listen(8081, () => {
   console.log("Server is running on port localhost:8081.");
