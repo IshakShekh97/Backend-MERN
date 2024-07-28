@@ -33,7 +33,7 @@ app.post("/login", async (req, res) => {
     if (result) {
       const token = jwt.sign({ email: email, userId: user._id }, "Secret");
       res.cookie("token", token);
-      res.redirect("/");
+      res.redirect("/profile");
     } else {
       res.send("Wrong  Credentials!");
     }
@@ -78,10 +78,52 @@ app.get("/logout", (req, res) => {
 });
 
 // Protected Routes
-app.get("/profile", isLoggedIn, (req, res) => {
-  // res.send("Profile Page is Protected !");
-  res.send(req.user);
+app.get("/profile", isLoggedIn, async (req, res) => {
+  let { email, userId } = req.user;
+  let user = await userModel.findById(userId).populate("posts");
+  res.render("profile", { user });
 });
+
+// Create Post
+app.post("/post", isLoggedIn, async (req, res) => {
+  const { content } = req.body;
+  let user = await userModel.findById(req.user.userId);
+  let post = await postModel.create({
+    user: user._id,
+    content,
+  });
+  user.posts.push(post._id);
+  await user.save();
+  res.redirect("/profile");
+});
+
+// Edit Post
+
+// app.get("/");
+
+// Like Post
+app.get("/like/:id", isLoggedIn, async (req, res) => {
+  let post = await postModel.findById(req.params.id);
+  const { userId } = req.user;
+
+  if (!post.likes.includes(userId)) {
+    post.likes.push(userId);
+  } else {
+    post.likes.splice(post.likes.indexOf(userId), 1);
+  }
+  await post.save();
+  res.redirect("/profile");
+});
+
+// Edit Post
+// app.get("/edit/:id", isLoggedIn, async (req, res) => {
+//   let post = await postModel.findById(req.params.id).populate("user");
+//   res.render("editPost", { post });
+// });
+
+// app.post("/edit", async (req, res) => {
+//   const { content } = req.body;
+// });
 
 // Protected Route Logic
 function isLoggedIn(req, res, next) {

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Project | Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="text-center text-white capitalize bg-zinc-950">
+
+  <div class="flex flex-col items-center w-full h-screen gap-20 my-20">
+    <div class="flex flex-col gap-8 max-sm:max-w-96 ">
+      <p class="text-6xl font-bold text-blue-500">Profile Page</p>
+      <p class="text-3xl font-bold capitalize">Hello <%= user.name %> , welcome to profile page ! </p>
+      <div class="flex items-center justify-center">
+        <a href="/logout" class="w-24 py-2 bg-red-500 border rounded-xl border-white/40">Logout</a>
+      </div>
+
+    </div>
+
+    <div class="flex flex-col items-center justify-center w-full gap-8">
+      <p class="text-2xl font-semibold">Create A Post</p>
+      <form action="/post" method="post" class="w-full">
+        <div class="flex flex-col items-center gap-5">
+          <textarea placeholder="What's On Your Mind !" name="content" id="" class="px-5 py-2 border rounded-md outline-none resize-none md:w-1/2 w-72 h-36 bg-slate-800 border-white/30"></textarea>
+          <input class="py-1 bg-blue-500 border rounded-lg outline-none px-7 " type="submit" name="" value="Create New Post" id="">
+        </div>
+      </form>
+    </div>
+
+    <div class="flex flex-col gap-10 pb-20">
+      <h3 class="text-4xl font-bold">Your Posts</h3>
+      <div class="flex flex-wrap items-center justify-center gap-5 max-w-screen-2xl">
+        <% if(user.posts === null || user.posts.length == 0) {  %>
+        <p class="text-2xl font-semibold">No Posts Yet !</p>
+        <%		}  %>
+
+        <% if(user.posts){ %>
+        <% user.posts.reverse().forEach((post)=>{ %>
+        <div class="flex flex-col rounded-md bg-zinc-800 w-72 sm:max-w-96 ">
+          <p class="px-6 pt-2 text-blue-400">@<%=user.username%></p>
+          <div class="px-3 py-2 overflow-y-auto h-44">
+            <%= post.content %>
+          </div>
+
+          <div class="flex flex-col items-center justify-between gap-2 px-4 py-2 rounded-b-md bg-stone-900">
+            <div class="flex items-center justify-between w-full gap-3">
+              <div class="">
+
+                <%if(post.likes.length=== 0) { %>
+                No Likes
+                <% }else{ %>
+                <%= post.likes.length %> Likes
+                <% } %>
+
+              </div>
+              <div class="*:px-2 *:py-1 *:border *:rounded-md *:border-white/10 flex items-center justify-center gap-2">
+                <a href="/like/<%=post._id%>" class="
+                   <% if(post.likes.includes(user._id)){ %>
+                   bg-pink-400
+                   <% }else{ %>
+                    bg-pink-600
+                   <%} %>
+                  ">
+                  <% if(post.likes.includes(user._id)){ %>
+                  💔 Unlike
+                  <% }else{ %>
+                  💗 Like
+                  <%} %>
+                </a>
+                <a href="/edit/<%=post._id%>" class="bg-blue-500 ">Edit</a>
+              </div>
+            </div>
+            <div class="">Created At : <%=post.date.getDate()%> / <%=post.date.getMonth()%> / <%=post.date.getFullYear()%> <%=post.date.getHours()%>:<%=post.date.getMinutes()%> </div>
+          </div>
+        </div>
+        <% })  %>
+        <%	}  %>
+
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
