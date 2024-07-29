@@ -116,14 +116,16 @@ app.get("/like/:id", isLoggedIn, async (req, res) => {
 });
 
 // Edit Post
-// app.get("/edit/:id", isLoggedIn, async (req, res) => {
-//   let post = await postModel.findById(req.params.id).populate("user");
-//   res.render("editPost", { post });
-// });
+app.get("/edit/:id", isLoggedIn, async (req, res) => {
+  let post = await postModel.findById(req.params.id).populate("user");
+  res.render("editPost", { post });
+});
 
-// app.post("/edit", async (req, res) => {
-//   const { content } = req.body;
-// });
+app.post("/update/:id", async (req, res) => {
+  const { content } = req.body;
+  await postModel.findByIdAndUpdate(req.params.id, { content });
+  res.redirect("/profile");
+});
 
 // Protected Route Logic
 function isLoggedIn(req, res, next) {
