@@ -8,7 +8,8 @@ const crypto = require("crypto");
 
 const userModel = require("./models/user.model");
 const postModel = require("./models/post.model");
-const multer = require("multer");
+
+const multerConfig = require("./config/multer.config");
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname + "public")));
@@ -16,35 +17,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-// Multer Disk Storage
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./public/images/uploads");
-  },
-  filename: function (req, file, cb) {
-    crypto.randomBytes(12, (err, bytes) => {
-      const fn = bytes.toString("hex") + path.extname(file.originalname);
-      cb(null, fn);
-    });
-  },
-});
-
-const upload = multer({ storage: storage });
-//
-
+// Home Route
 app.get("/", (req, res) => {
   res.render("index");
-});
-
-// file upload
-app.get("/test", (req, res) => {
-  res.render("test");
-});
-
-app.post("/upload", upload.single("image"), (req, res) => {
-  // console.log(req.body);
-  console.log(req.file);
 });
 
 // User Login Logic
